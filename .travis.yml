@@ -1,36 +1,38 @@
 language: node_js
 env:
   global:
-    - CC_TEST_REPORTER_ID=9be1d03f2612fa852a68e210734eecfef485873e4e1a5c2d42f29893142e47f1
+  - CC_TEST_REPORTER_ID=9be1d03f2612fa852a68e210734eecfef485873e4e1a5c2d42f29893142e47f1
 matrix:
   include:
-    - node_js: '12'
+  - node_js: '12'
 cache:
-  directories: [node_modules]
+  directories:
+  - node_modules
 after_success: npm run coverage
 before_script:
-  - psql -c 'create database testdb;' -U postgres
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- psql -c 'create database testdb;' -U postgres
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
-  - npm test
+- npm test
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESUL
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESUL"
 services:
-  - postgresql
+- postgresql
 addons:
   postgresql: '10'
   apt:
     packages:
-      - postgresql-10
-      - postgresql-client-10
+    - postgresql-10
+    - postgresql-client-10
 before_install:
-  - sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf
-  - sudo /etc/init.d/postgresql restart
+- sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf
+- sudo /etc/init.d/postgresql restart
 deploy:
   provider: heroku
   app:
     master: app-name
   api_key:
-    secure: ePxYDGwQ5S2gXIXhxF9/vvi1HTnri7DpNg8DjW9VRm6EU7NDWTs9RLo+D5n6Cl7iZp8P4oWTqJooHSARvbezLQ22CXlFm6kWSG8H94IslRYXkouhDaa4wyZXSimQIKY89RG6WejwUMtKwij32cJWa35QZHPCtgWV3tQ5+irxGjiNGRUk3AFWVIGUsdRZkZgXHSbD7vCWIAiplRLx81DpMNBIix6jtCTVWNEoxAQd7p0lrfTvW6UDd1cvBb92V10SPGDtepxZk3IKoQvgUZt6pfmHmh5d9Pwi+0FlpmJLF60eVTzM+sX78yBkGVPVa+o7g+2E3eJqHPflLDapoOJlQFDXq4CN9fvY1TdIijp4KowNr+r+aIziQ/qQBW3eDVNKgHi+UEiX24GR2HHl9nLPExNtsK9ZdVi3YXxzOyjkLYgVpkjJ4pesMkQrFhTbXzw8W4vhQ/1MiNAn6cTeOPe8N2euNTxnYyaxUu1LZ+N+nYgcEQfR2eE4EJt80hZh3dXQzutPIj9b9V2tL4tHH47FL01LXE3Gk0uChCPwY8uyM8K6++Tp9jzV8rFfPFUS5L4Stha5Twwnwh9w0xiZWA/Ey/RiniZibhzZYMSz1YeU9FShOT+ODDl9hArMt67sgjMeZejWMrp2AYz1lOhaQWfvk2bZULf5xhqY5pE1qyQNLSE=
+    secure: kPkqVZiYlawaXTSDWRYPV0vX5rQN2mAnp7ILRTPYRvLjfMa6zNqJ7SFI2m5eCfb36PTaSA9mRfg//g/HklSciTBeMSPzMCJF/F+W402LFdoTjpEaremy/lym4GTRjsYCgEBwpXUpGxVEl42Dr+nTPbBYwFepnw37xz6+dYWwswvyTjD9B9LNZ8vaMLKVfIECGmvsoePXzk+utznQTGNqh8xxPiLBCRtd92dAl+S4pUU94dNImvPFaD/zfDe7Vm6OoUoBsak5zxp/fojqsnvtbNjbqORpjoOMQbVrv52dXW/wZ+z6mS/08fA+8QsMfWPk5b14vy/+ojvcSArWYVax7+7P/DHRNzzjLG48yRB16VyV50nzyfdf3QElPDPNAtKfpH3RS3+ntJAJ2i6DIgj297Yu34kYpU2hfROqj5UObYf33H1mcaxCOxbHfhgDHvPnV3Ffs7S5JVAX8F7GedNfCTwJyeuYFZV19FRGNzYzmmR4Q5Kd5idU+3k0YJVeHjqiVTJ99pdGA2Bj5YplUvjyNlSxCQVJ6pL12A/3piIDuEA5htdbspD28ZbRZ0xV/cEFSYSr8/1brnVEpr/jv14myOmkSqGtxNShtgomKIiEE29WQE+0Zbi8jEhs1hkjmsnudYerM38zZHSFDvdzM4EsYtQYqQJfN4e4bMpidh/jFJ4=
