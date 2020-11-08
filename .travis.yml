@@ -28,3 +28,9 @@ addons:
 before_install:
   - sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf
   - sudo /etc/init.d/postgresql restart
+deploy:
+  provider: heroku
+  app:
+    master: app-name
+  api_key:
+    secure: ePxYDGwQ5S2gXIXhxF9/vvi1HTnri7DpNg8DjW9VRm6EU7NDWTs9RLo+D5n6Cl7iZp8P4oWTqJooHSARvbezLQ22CXlFm6kWSG8H94IslRYXkouhDaa4wyZXSimQIKY89RG6WejwUMtKwij32cJWa35QZHPCtgWV3tQ5+irxGjiNGRUk3AFWVIGUsdRZkZgXHSbD7vCWIAiplRLx81DpMNBIix6jtCTVWNEoxAQd7p0lrfTvW6UDd1cvBb92V10SPGDtepxZk3IKoQvgUZt6pfmHmh5d9Pwi+0FlpmJLF60eVTzM+sX78yBkGVPVa+o7g+2E3eJqHPflLDapoOJlQFDXq4CN9fvY1TdIijp4KowNr+r+aIziQ/qQBW3eDVNKgHi+UEiX24GR2HHl9nLPExNtsK9ZdVi3YXxzOyjkLYgVpkjJ4pesMkQrFhTbXzw8W4vhQ/1MiNAn6cTeOPe8N2euNTxnYyaxUu1LZ+N+nYgcEQfR2eE4EJt80hZh3dXQzutPIj9b9V2tL4tHH47FL01LXE3Gk0uChCPwY8uyM8K6++Tp9jzV8rFfPFUS5L4Stha5Twwnwh9w0xiZWA/Ey/RiniZibhzZYMSz1YeU9FShOT+ODDl9hArMt67sgjMeZejWMrp2AYz1lOhaQWfvk2bZULf5xhqY5pE1qyQNLSE=
